@@ -1,0 +1,13 @@
+.scheduler-table td{
+    height: 3rem;
+    width: calc(100% / 7);
+}
+
+.scheduler-table td:hover{
+    background-color: #dddddd;
+    cursor: pointer;
+}
+
+.inactive-date{
+    color: rgb(33 37 41 / 50%);
+}

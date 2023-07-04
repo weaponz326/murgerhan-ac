@@ -1,1 +1,53 @@
-<p>admin-setup works!</p>
+<div class="row mt-4">
+
+    <div class="col-md-8 mx-auto">
+        <div class="input-group w-100">
+            <input class="form-control" placeholder="Select Branch" disabled>
+            <button type="button" class="btn btn-secondary">
+                <i class="bi bi-three-dots"></i>
+            </button>
+        </div>
+        <div class="input-group w-100">
+            <input class="form-control" placeholder="Select Attendance" disabled>
+            <button type="button" class="btn btn-secondary">
+                <i class="bi bi-three-dots"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="p-3 text-center">
+            <button type="button" class="btn btn-light btn-sm border" (click)="setMonth(-1)">
+                <i class="bi bi-caret-left-fill"></i>
+            </button>
+            <span class="h4 mx-3 calendar-month-header">{{calendarMonthYear}}</span>
+            <button type="button" class="btn btn-light btn-sm border" (click)="setMonth(1)">
+                <i class="bi bi-caret-right-fill"></i>
+            </button>
+        </div>
+
+        <table class="table table-bordered table-responsive-sm mb-0 scheduler-table">
+            <thead>
+                <tr class="bg-light">
+                    <th *ngFor="let day of days" class="text-center">{{day}}</th>
+                </tr>
+            </thead>
+
+            <tbody id="calendar-body">
+                <tr *ngFor="let a of array(math.ceil(dates.length/7)); let i = index">
+                    <td *ngFor="let date of dates.slice(7*i, 7*i + 7);">
+                        <span class="text-center d-block" [ngClass]="{'inactive-date': date.getMonth() != currentDate.getMonth()}">
+                            {{date | date:'d'}}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- 
+TODO:
+confirm attendance setup modal -->
+

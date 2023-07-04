@@ -10,7 +10,7 @@ import { AdminGeneralSummaryComponent } from './admin-general-summary/admin-gene
 import { UserCheckComponent } from './user-check/user-check.component';
 import { UserSummaryComponent } from './user-summary/user-summary.component';
 import { LogoutComponent } from './logout/logout.component';
-import { AdminSelectComponent } from './admin-select/admin-select.component';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +22,6 @@ import { AdminSelectComponent } from './admin-select/admin-select.component';
     UserCheckComponent,
     UserSummaryComponent,
     LogoutComponent,
-    AdminSelectComponent
   ],
   imports: [
     BrowserModule,
