@@ -52,4 +52,11 @@ export class AuthApiService {
       .get();
   }
 
+  getBranchUserRoleList(){
+    return this.usersRoleRef.ref
+      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
 }

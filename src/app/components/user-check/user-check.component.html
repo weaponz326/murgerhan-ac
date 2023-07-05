@@ -1,9 +1,7 @@
 <div class="row mt-3">
     <div class="col">
 
-        <p class="fs-6 text-center mb-1">Branch Name</p>
-        <p class="fs-6 text-center mb-1">Attendance Name</p>
-        <p class="fs-6 text-center mb-1">Attendance Date</p>
+        <p class="fs-6 text-center mb-1">{{userData?.data()?.staff_name}}</p>
 
     </div>
 </div>
@@ -12,13 +10,34 @@
     <div class="col">
 
         <div class="text-center mb-4">
-            <button class="btn btn-outline-success btn-lg p-4 mx-3">Clock In</button>
-            <button class="btn btn-outline-warning btn-lg p-4 mx-3">Clock Out</button>
+            <button class="btn btn-outline-success btn-lg p-4 mx-3" (click)="openConfirmModal('Clock In')">Clock In</button>
+            <button class="btn btn-outline-warning btn-lg p-4 mx-3" (click)="openConfirmModal('Clock Out')">Clock Out</button>
         </div>
         <div class="text-center mb-4">
-            <button class="btn btn-outline-success btn-lg p-4 mx-3">Start Break</button>
-            <button class="btn btn-outline-warning btn-lg p-4 mx-3">End Break</button>
+            <button class="btn btn-outline-success btn-lg p-4 mx-3" (click)="openConfirmModal('Start Break')">Start Break</button>
+            <button class="btn btn-outline-warning btn-lg p-4 mx-3" (click)="openConfirmModal('End Break')">End Break</button>
         </div>
 
+    </div>
+</div>
+
+<!-- confirm clock modal -->
+
+<button [hidden]="true" #buttonElementReference data-bs-toggle="modal" data-bs-target="#confirmationModalOne">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="confirmationModalOne" tabindex="-1" aria-labelledby="confirmationModalOneLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+
+            <div class="modal-body">
+                <p class="pt-4">Confirm {{clockType}} at:</p>
+                <p class="lead">{{getCurrentTime()}}</p>
+                <button class="btn btn-sm btn-success mx-2 confirm-modal-btn" data-bs-dismiss="modal" data-bs-toggle="modal" (click)="onConfirm()">Confirm</button>
+                <button class="btn btn-sm btn-warning mx-2 confirm-modal-btn" data-bs-dismiss="modal" data-bs-toggle="modal">Cancel</button>
+            </div>
+            
+        </div>
     </div>
 </div>
