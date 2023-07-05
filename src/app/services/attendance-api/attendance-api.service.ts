@@ -14,23 +14,23 @@ export class AttendanceApiService {
 
   // attendance
 
-  createattendance(data: any){
+  createAttendance(data: any){
     return this.attendanceRef.add(data);
   }
 
-  updateattendance(id:any, data: any){
+  updateAttendance(id:any, data: any){
     return this.attendanceRef.doc(id).update(data);
   }
 
-  deleteattendance(id: any){
+  deleteAttendance(id: any){
     return this.attendanceRef.doc(id).delete();
   }
 
-  getattendance(id: any){
+  getAttendance(id: any){
     return this.attendanceRef.doc(id).ref.get();
   }
 
-  getattendanceList(){
+  getAttendanceList(){
     return this.attendanceRef.ref
       .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
       .orderBy("created_at", "desc")

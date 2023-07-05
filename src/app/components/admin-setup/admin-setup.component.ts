@@ -1,5 +1,7 @@
 import { formatDate } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+
+import { SelectAttendanceComponent } from '../select-windows/select-attendance/select-attendance.component';
 
 
 const DAY_MS = 60 * 60 * 24 * 1000;
@@ -12,7 +14,14 @@ const DAY_MS = 60 * 60 * 24 * 1000;
 })
 export class AdminSetupComponent {
 
+  @ViewChild('buttonElementReference', { read: ElementRef, static: false }) buttonElement!: ElementRef;
+  @ViewChild('selectAttendanceComponentReference', { read: SelectAttendanceComponent, static: false }) selectAttendance!: SelectAttendanceComponent;
+
   branchName = JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;
+  attendanceName = "";
+  attendanceData: any;
+
+  showCalendar = false;
 
   schedulesData: any;
   scheduleDatesData: any = [];
@@ -24,6 +33,7 @@ export class AdminSetupComponent {
   days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   currentDate = new Date();
+  selectedDate: any;
 
   calendarMonthYear = "";
 
@@ -80,6 +90,42 @@ export class AdminSetupComponent {
 
   range(start: any, end: any, length = end - start + 1) {
     return Array.from({ length }, (_, i) => start + i)
+  }
+
+  // isDateInRange(date: Date, schedulesData: any[]): boolean {
+  //   for (const data of schedulesData) {
+  //     const startDate = new Date(data.start_date);
+  //     const endDate = new Date(data.end_date);
+  
+  //     if (date >= startDate && date <= endDate) {
+  //       return true;
+  //     }
+  //   }
+  
+  //   return false;
+  // }
+
+  openConfirmModal(date: any){
+    this.buttonElement.nativeElement.click();
+    console.log(date);
+    this.selectedDate = date;
+  }
+
+  onConfirm() {
+    console.log("Set Up!!!");
+  }
+
+  openAttendanceWindow(){
+    console.log("You are opening select attendance window")
+    this.selectAttendance.openModal();
+  }
+
+  onAttendanceSelected(data: any){
+    console.log(data);
+    this.showCalendar = true;
+    this.attendanceName = data.data().attendance_name;
+    this.attendanceData = data.data();
+    sessionStorage.setItem("attendance_id", data.id);
   }
 
 }
