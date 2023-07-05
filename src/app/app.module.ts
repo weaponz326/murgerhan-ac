@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,13 +10,14 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 import { environment } from 'src/environments/environment';
 
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { AdminSetupComponent } from './admin-setup/admin-setup.component';
-import { AdminGeneralSummaryComponent } from './admin-general-summary/admin-general-summary.component';
-import { UserCheckComponent } from './user-check/user-check.component';
-import { UserSummaryComponent } from './user-summary/user-summary.component';
-import { LogoutComponent } from './logout/logout.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { AdminSetupComponent } from './components/admin-setup/admin-setup.component';
+import { AdminGeneralSummaryComponent } from './components/admin-general-summary/admin-general-summary.component';
+import { UserCheckComponent } from './components/user-check/user-check.component';
+import { UserSummaryComponent } from './components/user-summary/user-summary.component';
+import { SelectBranchComponent } from './components/select-windows/select-branch/select-branch.component';
+import { SelectAttendanceComponent } from './components/select-windows/select-attendance/select-attendance.component';
 
 
 @NgModule({
@@ -27,12 +29,16 @@ import { LogoutComponent } from './logout/logout.component';
     AdminGeneralSummaryComponent,
     UserCheckComponent,
     UserSummaryComponent,
-    LogoutComponent,
+    SelectBranchComponent,
+    SelectAttendanceComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

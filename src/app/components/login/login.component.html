@@ -1,0 +1,30 @@
+<div class="row mt-5" *ngIf="!showPrompt">
+    <div class="col-md-8 mx-auto">
+        
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <input formControlName="email" class="form-control w-100" id="inputEmail" type="email" placeholder="Email" />
+                <div *ngIf="errorCode == 'auth/user-not-found'" class="text-danger">{{errorMessage}}</div>
+                <div *ngIf="errorCode == 'auth/invalid-email'" class="text-danger">{{errorMessage}}</div>
+            </div>
+            <div class="mb-3">
+                <input formControlName="password" class="form-control w-100" id="inputPassword" type="password" placeholder="Password"/>
+                <div *ngIf="errorCode == 'auth/wrong-password'" class="text-danger">{{errorMessage}}</div>
+            </div>
+            <div class="text-center mt-4">
+                <button [disabled]="isSending" class="btn btn-primary px-3">Login</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div *ngIf="showPrompt" class="row mt-5">
+    <div class="col text-center">
+
+        <button class="btn btn-outline-primary p-3 mb-4 prompt-btn" routerLink="/admin-setup">Set Up Attendance</button>
+        <br>
+        <button class="btn btn-outline-primary p-3 mb-4 prompt-btn"  routerLink="/user-check">Clock Attendance</button>
+
+    </div>
+</div>

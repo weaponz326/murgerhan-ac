@@ -12,6 +12,8 @@ const DAY_MS = 60 * 60 * 24 * 1000;
 })
 export class AdminSetupComponent {
 
+  branchName = JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;
+
   schedulesData: any;
   scheduleDatesData: any = [];
 
