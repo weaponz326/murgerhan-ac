@@ -42,7 +42,7 @@ export class LoginComponent {
     this.authApi.login(email, password)
       .then(
         (res: any) => {
-          console.log(res);          
+          console.log(res.user.uid);          
           localStorage.setItem('uid', res.user.uid);
           this.getUserRole();
         },

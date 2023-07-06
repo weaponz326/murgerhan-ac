@@ -19,10 +19,17 @@ export class AdminGeneralSummaryComponent {
   ) { }
 
   attendanceData: any;
+  sheetListData: any;
   attendanceDate = new Date(String(localStorage.getItem("selected_attendance_date")));
+
+  totalClockedIn = 0;
+  totalClockedOut = 0;
+  totalBreakStarted = 0;
+  totalBreakEnded = 0;
 
   ngOnInit(): void {
     this.getAttendance();
+    this.getGeneralAttendanceSheetList();
   }
 
   getAttendance() {
@@ -37,6 +44,21 @@ export class AdminGeneralSummaryComponent {
         console.log(err);
         // this.connectionToast.openToast();
       };
+  }
+
+  getGeneralAttendanceSheetList(){
+    this.attendanceApi.getGeneralAttendanceSheetList()
+      .then(
+        (res: any) => {
+          console.log(res.docs);
+          this.sheetListData = res.docs;    
+          this.setSummary();
+        },
+        (err: any) => {
+          console.log(err);
+          // this.connectionToast.openToast();
+        }
+      )
   }
 
   logout(){
@@ -54,6 +76,13 @@ export class AdminGeneralSummaryComponent {
           // this.connectionToast.openToast();
         }
       )
+  }
+
+  setSummary(){
+    this.totalClockedIn = this.sheetListData.filter((obj: any) => { return obj.data().sheet.clocked_in != null }).length;
+    this.totalClockedOut = this.sheetListData.filter((obj: any) => { return obj.data().sheet.clocked_out != null }).length;
+    this.totalBreakStarted = this.sheetListData.filter((obj: any) => { return obj.data().sheet.started_break != null }).length;
+    this.totalBreakEnded = this.sheetListData.filter((obj: any) => { return obj.data().sheet.ended_break != null }).length;
   }
 
 }

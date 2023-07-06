@@ -25,11 +25,13 @@ export class AdminSetupComponent {
     private attendanceApi: AttendanceApiService,
   ) { }
   
-  @ViewChild('buttonElementReference', { read: ElementRef, static: false }) buttonElement!: ElementRef;
+  @ViewChild('confirmButtonElementReference', { read: ElementRef, static: false }) confirmButtonElement!: ElementRef;
+  @ViewChild('existButtonElementReference', { read: ElementRef, static: false }) existButtonElement!: ElementRef;
   @ViewChild('selectAttendanceComponentReference', { read: SelectAttendanceComponent, static: false }) selectAttendance!: SelectAttendanceComponent;
 
   userListData: any;
   sheetListData: any;
+  sheetData: any;
 
   branchName = JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;
   attendanceName = "";
@@ -67,8 +69,31 @@ export class AdminSetupComponent {
       )
   }
 
+  getGeneralAttendanceSheetList(){
+    this.attendanceApi.getGeneralAttendanceSheetList()
+      .then(
+        (res: any) => {
+          console.log(res.docs);
+          this.sheetListData = res.docs;    
+          
+          if(this.sheetListData.length != 0){
+            console.log("exists!");
+            this.openExistModal();
+          }
+          else{
+            console.log("not exist!");
+            this.openConfirmModal();
+          }
+        },
+        (err: any) => {
+          console.log(err);
+          // this.connectionToast.openToast();
+        }
+      )
+  }
+
   createAttendanceSheetBatch(){
-    this.attendanceApi.createAttendanceSheetBatch(this.sheetListData)
+    this.attendanceApi.createAttendanceSheetBatch(this.sheetData)
       .then(() => {
         console.log('Batch operation completed successfully!');
         this.router.navigateByUrl("/admin-general-summary");
@@ -79,7 +104,7 @@ export class AdminSetupComponent {
   }
 
   setSheetData(){
-    this.sheetListData = this.userListData.map((item: any) => {
+    this.sheetData = this.userListData.map((item: any) => {
       return {
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),
@@ -94,11 +119,10 @@ export class AdminSetupComponent {
           }
         },
         sheet: {
-          present: false,
-          clock_in: null,
-          clock_out: null,
-          break_started: null,
-          break_ended: null,
+          clocked_in: null,
+          clocked_out: null,
+          started_break: null,
+          ended_break: null,
         }
       };
     });
@@ -146,15 +170,23 @@ export class AdminSetupComponent {
     return Array.from({ length }, (_, i) => start + i)
   }
 
-  openConfirmModal(date: any){
-    this.buttonElement.nativeElement.click();
+  checkAttendanceExist(date: any){
     console.log(date);
     this.selectedDate = date;
+    localStorage.setItem("selected_attendance_date", this.selectedDate.toISOString());
+    this.getGeneralAttendanceSheetList();    
+  }
+
+  openExistModal(){
+    this.existButtonElement.nativeElement.click();
+  }
+
+  openConfirmModal(){
+    this.confirmButtonElement.nativeElement.click();
   }
 
   onConfirm() {
     console.log("Set Up!!!");
-    localStorage.setItem("selected_attendance_date", this.selectedDate.toISOString());
     this.setSheetData();
     this.createAttendanceSheetBatch();
   }

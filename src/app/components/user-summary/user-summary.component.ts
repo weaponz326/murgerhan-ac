@@ -20,20 +20,22 @@ export class UserSummaryComponent {
 
   attendanceData: any;
   userData: any;
+  sheetData: any;
   attendanceDate = new Date(String(localStorage.getItem("selected_attendance_date")));
 
   ngOnInit(): void {
     this.getAttendance();
     this.getUserRole();
+    this.getPersonnelAttendanceSheet();
   }
 
   getUserRole(){
-    let id = localStorage.getItem("uid");
+    const id = localStorage.getItem("uid") as string;
 
     this.authApi.getUserRole(id)
       .then(
         (res: any) => {
-          console.log(res.docs);
+          console.log(res);
           this.userData = res;
         },
         (err: any) => {
@@ -55,6 +57,20 @@ export class UserSummaryComponent {
         console.log(err);
         // this.connectionToast.openToast();
       };
+  }
+
+  getPersonnelAttendanceSheet(){
+    this.attendanceApi.getPersonnelAttendanceSheet()
+      .then(
+        (res: any) => {
+          console.log(res.docs[0].data());
+          this.sheetData = res.docs[0].data().sheet;
+        },
+        (err: any) => {
+          console.log(err);
+          // this.connectionToast.openToast();
+        }
+      )
   }
 
   logout(){

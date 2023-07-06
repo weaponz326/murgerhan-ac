@@ -57,9 +57,19 @@ export class AttendanceApiService {
     return this.attendanceSheetRef.doc(id).ref.get();
   }
 
-  getAttendanceSheetList(){
+  getPersonnelAttendanceSheet(){    
     return this.attendanceSheetRef.ref
       .where("attendance", "==", sessionStorage.getItem("attendance_attendance_id"))
+      .where("date", "==", new Date(String(localStorage.getItem("selected_attendance_date"))))
+      .where("personnel.id", "==", localStorage.getItem("uid"))
+      .orderBy("created_at", "desc")
+      .get();
+  }
+
+  getGeneralAttendanceSheetList(){
+    return this.attendanceSheetRef.ref
+      .where("attendance", "==", sessionStorage.getItem("attendance_attendance_id"))
+      .where("date", "==", new Date(String(localStorage.getItem("selected_attendance_date"))))
       .orderBy("created_at", "desc")
       .get();
   }
@@ -71,24 +81,6 @@ export class AttendanceApiService {
       batch.set(newItemRef, item);
     });
     return batch.commit();
-  }
-
-  updateAttendancePersonnelSheet(data: any): Promise<void> {
-    const collection = "attendance_attendance_personnel";
-    const collectionRef = this.firestore.collection(
-      collection, ref => ref
-        .where("attendance", '==', sessionStorage.getItem("attendance_attendance_id"))
-        .where("personnel.id", '==', localStorage.getItem("uid"))
-    );
-
-    return collectionRef.get().toPromise().then(querySnapshot => {
-      if(querySnapshot){
-        querySnapshot.forEach(doc => {
-          const docRef = collectionRef.doc(doc.id);
-          docRef.update(data);
-        });
-      }
-    });
   }
 
 }
