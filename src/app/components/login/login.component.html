@@ -4,12 +4,12 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
                 <input formControlName="email" class="form-control w-100" id="inputEmail" type="email" placeholder="Email" />
-                <div *ngIf="errorCode == 'auth/user-not-found'" class="text-danger">{{errorMessage}}</div>
-                <div *ngIf="errorCode == 'auth/invalid-email'" class="text-danger">{{errorMessage}}</div>
+                <div *ngIf="errorCode == 'auth/user-not-found'" class="small text-danger">{{errorMessage}}</div>
+                <div *ngIf="errorCode == 'auth/invalid-email'" class="small text-danger">{{errorMessage}}</div>
             </div>
             <div class="mb-3">
                 <input formControlName="password" class="form-control w-100" id="inputPassword" type="password" placeholder="Password"/>
-                <div *ngIf="errorCode == 'auth/wrong-password'" class="text-danger">{{errorMessage}}</div>
+                <div *ngIf="errorCode == 'auth/wrong-password'" class="small text-danger">{{errorMessage}}</div>
             </div>
             <div class="text-center mt-4">
                 <button [disabled]="isSending" class="btn btn-primary px-3">Login</button>
