@@ -103,7 +103,7 @@ export class UserCheckComponent {
       else this.openConfirmModal();
     }
     else if(this.clockType == "Clock Out"){
-      if(this.sheetData.clocked_in != null) this.openCheckModal()
+      if(this.sheetData.clocked_out != null) this.openCheckModal()
       else this.openConfirmModal();
     }
     else if(this.clockType == "Start Break"){

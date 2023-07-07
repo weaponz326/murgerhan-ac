@@ -140,7 +140,7 @@ export class AdminSetupComponent {
     }
    
     return dates;
-   }
+  }
    
   setMonth(inc: any) {
     const [year, month] = [this.currentDate.getFullYear(), this.currentDate.getMonth()];
