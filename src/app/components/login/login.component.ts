@@ -101,8 +101,9 @@ export class LoginComponent {
 
   routeByRole(){
     if(
-      this.userRoleData.data().staff_role == "Manager" || 
       this.userRoleData.data().staff_role == "Assistant Manager" ||
+      this.userRoleData.data().staff_role == "Manager" || 
+      this.userRoleData.data().staff_role == "Head Manager" || 
       this.userRoleData.data().staff_role == "Administrator" ||
       this.userRoleData.data().staff_role == "General Manager"
     ) { 
