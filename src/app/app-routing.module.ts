@@ -15,10 +15,35 @@ const routes: Routes = [
     children: [
       { path: "", component: LoginComponent},
       { path: "login", component: LoginComponent},
-      { path: "admin-setup", component: AdminSetupComponent},
-      { path: "admin-general-summary", component: AdminGeneralSummaryComponent},
-      { path: "user-check", component: UserCheckComponent},
-      { path: "user-summary", component: UserSummaryComponent},
+      { 
+        path: "admin-setup", 
+        component: AdminSetupComponent, 
+        canActivate: [() => { return !!localStorage.getItem("uid") }]
+      },
+      { 
+        path: "admin-general-summary", 
+        component: AdminGeneralSummaryComponent,
+        canActivate: [
+          () => { return !!localStorage.getItem("uid") },
+          () => { return !!sessionStorage.getItem("attendance_attendance_id") }
+        ]
+      },
+      { 
+        path: "user-check", 
+        component: UserCheckComponent,
+        canActivate: [
+          () => { return !!localStorage.getItem("uid") },
+          () => { return !!sessionStorage.getItem("attendance_attendance_id") }
+        ]
+      },
+      { 
+        path: "user-summary", 
+        component: UserSummaryComponent,
+        canActivate: [
+          () => { return !!localStorage.getItem("uid") },
+          () => { return !!sessionStorage.getItem("attendance_attendance_id") }
+        ]
+      },
     ]
   },
 ];
