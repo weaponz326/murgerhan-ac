@@ -109,6 +109,7 @@ export class AdminSetupComponent {
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),
         attendance: sessionStorage.getItem('attendance_attendance_id'),
+        branch: JSON.parse(String(localStorage.getItem("selected_branch"))).id,
         date: this.selectedDate,
         personnel: {
           id: item.id,
