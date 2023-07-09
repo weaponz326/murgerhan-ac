@@ -38,16 +38,16 @@ export class UserCheckComponent {
 
   getUserRole(){
     let id = localStorage.getItem("uid");
-    console.log(id);
+    // console.log(id);
 
     this.authApi.getUserRole(id)
       .then(
         (res: any) => {
-          console.log(res.data());
+          // console.log(res.data());
           this.userData = res;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           // this.connectionToast.openToast();
         }
       )
@@ -57,28 +57,28 @@ export class UserCheckComponent {
     this.attendanceApi.getPersonnelAttendanceSheet()
       .then(
         (res: any) => {
-          console.log(res.docs[0].data());
+          // console.log(res.docs[0].data());
           this.personnelSheetData = res.docs[0];
           this.sheetData = res.docs[0].data().sheet;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           // this.connectionToast.openToast();
         }
       )
   }
 
   updateAttendancePersonnelSheet(){
-    console.log(this.sheetData);
+    // console.log(this.sheetData);
 
     this.attendanceApi.updateAttendanceSheet(this.personnelSheetData.id, this.sheetData)
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.router.navigateByUrl("/user-summary");
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           // this.connectionToast.openToast();
         }
       )
@@ -95,7 +95,7 @@ export class UserCheckComponent {
   }
 
   checkClock(type: any){
-    console.log(type);
+    // console.log(type);
     this.clockType = type;
 
     if(this.clockType == "Clock In"){
@@ -125,7 +125,7 @@ export class UserCheckComponent {
   }
 
   onConfirm() {
-    console.log("You In!!!");
+    // console.log("You In!!!");
     if(this.clockType == "Clock In") { 
       this.sheetData.clocked_in = this.getCurrentTime();
       this.sheetData = { sheet: this.sheetData}
@@ -143,7 +143,7 @@ export class UserCheckComponent {
       this.sheetData = { sheet: this.sheetData}
     }
 
-    console.log(this.sheetData);
+    // console.log(this.sheetData);
     this.updateAttendancePersonnelSheet();
   }
   

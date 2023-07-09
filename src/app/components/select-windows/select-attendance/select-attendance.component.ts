@@ -36,12 +36,12 @@ export class SelectAttendanceComponent {
     this.attendanceApi.getAttendanceList()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.attendanceListData = res.docs;
           this.isFetchingData = false;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           // this.connectionToast.openToast();
           this.isFetchingData = false;
         }
@@ -51,7 +51,7 @@ export class SelectAttendanceComponent {
   selectRow(row: any){
     this.rowSelected.emit(row);
     this.closeButton.nativeElement.click();
-    console.log(row);
+    // console.log(row);
   }
   
 }

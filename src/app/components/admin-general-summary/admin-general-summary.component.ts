@@ -37,11 +37,11 @@ export class AdminGeneralSummaryComponent {
 
     this.attendanceApi.getAttendance(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.attendanceData = res;
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         // this.connectionToast.openToast();
       };
   }
@@ -50,29 +50,29 @@ export class AdminGeneralSummaryComponent {
     this.attendanceApi.getGeneralAttendanceSheetList()
       .then(
         (res: any) => {
-          console.log(res.docs);
+          // console.log(res.docs);
           this.sheetListData = res.docs;    
           this.setSummary();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           // this.connectionToast.openToast();
         }
       )
   }
 
   logout(){
-    console.log("u logging out? ...where u going?");
+    // console.log("u logging out? ...where u going?");
 
     this.authApi.logout()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           localStorage.removeItem("uid");
           window.location.href = "/";
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           // this.connectionToast.openToast();
         }
       )

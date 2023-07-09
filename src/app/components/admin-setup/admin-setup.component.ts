@@ -58,12 +58,12 @@ export class AdminSetupComponent {
     this.usersApi.getBranchUserRoleList()
       .then(
         (res: any) => {
-          console.log(res.docs);
+          // console.log(res.docs);
           this.userListData = res.docs;
           this.showCalendar = true;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           // this.connectionToast.openToast();
         }
       )
@@ -73,20 +73,20 @@ export class AdminSetupComponent {
     this.attendanceApi.getGeneralAttendanceSheetList()
       .then(
         (res: any) => {
-          console.log(res.docs);
+          // console.log(res.docs);
           this.sheetListData = res.docs;    
           
           if(this.sheetListData.length != 0){
-            console.log("exists!");
+            // console.log("exists!");
             this.openExistModal();
           }
           else{
-            console.log("not exist!");
+            // console.log("not exist!");
             this.openConfirmModal();
           }
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           // this.connectionToast.openToast();
         }
       )
@@ -95,7 +95,7 @@ export class AdminSetupComponent {
   createAttendanceSheetBatch(){
     this.attendanceApi.createAttendanceSheetBatch(this.sheetData)
       .then(() => {
-        console.log('Batch operation completed successfully!');
+        // console.log('Batch operation completed successfully!');
         this.router.navigateByUrl("/admin-general-summary");
       })
       .catch((error) => {
@@ -172,7 +172,7 @@ export class AdminSetupComponent {
   }
 
   checkAttendanceExist(date: any){
-    console.log(date);
+    // console.log(date);
     this.selectedDate = date;
     localStorage.setItem("selected_attendance_date", this.selectedDate.toISOString());
     this.getGeneralAttendanceSheetList();    
@@ -187,18 +187,18 @@ export class AdminSetupComponent {
   }
 
   onConfirm() {
-    console.log("Set Up!!!");
+    // console.log("Set Up!!!");
     this.setSheetData();
     this.createAttendanceSheetBatch();
   }
 
   openAttendanceWindow(){
-    console.log("You are opening select attendance window");
+    // console.log("You are opening select attendance window");
     this.selectAttendance.openModal();
   }
 
   onAttendanceSelected(data: any){
-    console.log(data);
+    // console.log(data);
     this.attendanceName = data.data().attendance_name;
     this.attendanceData = data.data();
     sessionStorage.setItem("attendance_attendance_id", data.id);

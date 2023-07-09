@@ -35,11 +35,11 @@ export class UserSummaryComponent {
     this.authApi.getUserRole(id)
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.userData = res;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           // this.connectionToast.openToast();
         }
       )
@@ -50,11 +50,11 @@ export class UserSummaryComponent {
 
     this.attendanceApi.getAttendance(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.attendanceData = res;
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         // this.connectionToast.openToast();
       };
   }
@@ -63,28 +63,28 @@ export class UserSummaryComponent {
     this.attendanceApi.getPersonnelAttendanceSheet()
       .then(
         (res: any) => {
-          console.log(res.docs[0].data());
+          // console.log(res.docs[0].data());
           this.sheetData = res.docs[0].data().sheet;
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           // this.connectionToast.openToast();
         }
       )
   }
 
   logout(){
-    console.log("u logging out? ...where u going?");
+    // console.log("u logging out? ...where u going?");
 
     this.authApi.logout()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           localStorage.removeItem("uid");
           window.location.href = "/";
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           // this.connectionToast.openToast();
         }
       )

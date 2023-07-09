@@ -42,16 +42,16 @@ export class LoginComponent {
     this.authApi.login(email, password)
       .then(
         (res: any) => {
-          console.log(res.user.uid);          
+          // console.log(res.user.uid);          
           localStorage.setItem('uid', res.user.uid);
           this.getUserRole();
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.isSending = false;
           this.errorMessage = err.message.replace("Firebase:", "").replace(/\(.*\)/, "").trim().replace(/\.$/, "");
           this.errorCode = err.code;
-          console.log(this.errorCode, this.errorMessage)
+          // console.log(this.errorCode, this.errorMessage)
         }
       )
   }
@@ -61,7 +61,7 @@ export class LoginComponent {
 
     this.authApi.getUserRole(id)
       .then((res) => {
-        console.log(res.data());
+        // console.log(res.data());
         this.userRoleData = res;
         this.isSending = false;
 
@@ -71,11 +71,11 @@ export class LoginComponent {
           this.routeByRole();
         }
         catch{
-          console.log("probably not logged in!");
+          // console.log("probably not logged in!");
         }
       }),
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.isSending = false;
         // this.connectionToast.openToast();
       };
@@ -83,17 +83,17 @@ export class LoginComponent {
 
   logout(){
     // e.stopPropagation();
-    console.log("u logging out? ...where u going?");
+    // console.log("u logging out? ...where u going?");
 
     this.authApi.logout()
       .then(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           localStorage.clear();
           window.location.href = "/";
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           // this.connectionToast.openToast();
         }
       )
@@ -108,7 +108,7 @@ export class LoginComponent {
       this.userRoleData.data().staff_role == "General Manager"
     ) { 
       this.showPrompt = true;
-      console.log("is " + this.userRoleData.data().staff_role);
+      // console.log("is " + this.userRoleData.data().staff_role);
     }
     else {
       this.router.navigateByUrl('/user-check');
