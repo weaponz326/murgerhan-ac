@@ -5,7 +5,7 @@
   },
   "hosting": {
     "site": "murgerhanhub-att-cons",
-    "public": "dist/murgerhanhub-ac",
+    "public": "dist/murgerhan-ac",
     "ignore": [
       "firebase.json",
       "**/.*",
