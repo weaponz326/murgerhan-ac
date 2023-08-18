@@ -78,6 +78,11 @@ export class AdminGeneralSummaryComponent {
       )
   }
 
+  deactivate(){
+    localStorage.removeItem('selected_attendance_date');
+    this.logout();
+  }
+
   setSummary(){
     this.totalClockedIn = this.sheetListData.filter((obj: any) => { return obj.data().sheet.clocked_in != null }).length;
     this.totalClockedOut = this.sheetListData.filter((obj: any) => { return obj.data().sheet.clocked_out != null }).length;

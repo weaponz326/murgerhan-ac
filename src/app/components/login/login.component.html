@@ -24,7 +24,29 @@
 
         <button class="btn btn-outline-primary p-3 mb-4 prompt-btn" routerLink="/admin-setup">Set Up Attendance</button>
         <br>
-        <button class="btn btn-outline-primary p-3 mb-4 prompt-btn"  routerLink="/user-check">Clock Attendance</button>
+        <button class="btn btn-outline-primary p-3 mb-4 prompt-btn" (click)="checkSetupNotExist()">Clock Attendance</button>
 
+    </div>
+</div>
+
+<!-- set not exist modal -->
+
+<button [hidden]="true" #notExistButtonElementReference data-bs-toggle="modal" data-bs-target="#setupNotExistModalOne">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="setupNotExistModalOne" tabindex="-1" aria-labelledby="setupNotExistModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+
+            <div class="modal-body my-3">
+                <p class="fs-2 text-warning">
+                    <i class="bi bi-exclamation-octagon"></i>
+                </p>
+                <p class="pt-2">No attendance set up available</p>
+                <p>Please, contact your branch manager</p>
+            </div>
+            
+        </div>
     </div>
 </div>

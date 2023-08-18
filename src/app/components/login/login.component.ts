@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -15,6 +15,8 @@ export class LoginComponent {
     private router: Router,
     private authApi: AuthApiService,
   ) { }
+
+  @ViewChild('notExistButtonElementReference', { read: ElementRef, static: false }) notExistButtonElement!: ElementRef;
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -113,6 +115,13 @@ export class LoginComponent {
     else {
       this.router.navigateByUrl('/user-check');
     }
+  }
+
+  checkSetupNotExist(){
+    if (localStorage.getItem('selected_attendance_date'))
+      this.router.navigateByUrl('/user-check');
+    else
+      this.notExistButtonElement.nativeElement.click();
   }
 
 }
