@@ -35,7 +35,7 @@
 
             <tbody id="calendar-body">
                 <tr *ngFor="let a of array(math.ceil(dates.length/7)); let i = index">
-                    <td *ngFor="let date of dates.slice(7*i, 7*i + 7);" (dblclick)="checkAttendanceExist(date)">
+                    <td *ngFor="let date of dates.slice(7*i, 7*i + 7);" (dblclick)="checkAttendanceOutOfRange(date)">
                         <span class="text-center d-block" [ngClass]="{'inactive-date': date.getMonth() != currentDate.getMonth()}">
                             {{date | date:'d'}}
                         </span>
@@ -71,6 +71,28 @@
         </div>
     </div>
 </div>
+
+<!-- attendance out of range modal -->
+
+<button [hidden]="true" #outOfRangeButtonElementReference data-bs-toggle="modal" data-bs-target="#attendanceOutOfRangeModalOne">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="attendanceOutOfRangeModalOne" tabindex="-1" aria-labelledby="attendanceOutOfRangeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+
+            <div class="modal-body my-3">
+                <p class="fs-2 text-warning">
+                    <i class="bi bi-exclamation-octagon"></i>
+                </p>
+                <p class="pt-2">Selected date is out of range for the attendance</p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
 
 <!-- attendance exist modal -->
 

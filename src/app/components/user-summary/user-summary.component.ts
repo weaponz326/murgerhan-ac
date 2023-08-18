@@ -23,6 +23,8 @@ export class UserSummaryComponent {
   sheetData: any;
   attendanceDate = new Date(String(localStorage.getItem("selected_attendance_date")));
 
+  isFetchingData = false;
+
   ngOnInit(): void {
     this.getAttendance();
     this.getUserRole();
@@ -30,6 +32,8 @@ export class UserSummaryComponent {
   }
 
   getUserRole(){
+    this.isFetchingData = true;
+
     const id = localStorage.getItem("uid") as string;
 
     this.authApi.getUserRole(id)
@@ -37,38 +41,48 @@ export class UserSummaryComponent {
         (res: any) => {
           // console.log(res);
           this.userData = res;
+          this.isFetchingData = false;
         },
         (err: any) => {
           // console.log(err);
           // this.connectionToast.openToast();
+          this.isFetchingData = false;
         }
       )
   }
 
   getAttendance() {
+    this.isFetchingData = true;
+
     const id = sessionStorage.getItem('attendance_attendance_id') as string;
 
     this.attendanceApi.getAttendance(id)
       .then((res) => {
         // console.log(res);
         this.attendanceData = res;
+        this.isFetchingData = false;
       }),
       (err: any) => {
         // console.log(err);
         // this.connectionToast.openToast();
+        this.isFetchingData = false;
       };
   }
 
   getPersonnelAttendanceSheet(){
+    this.isFetchingData = true;
+
     this.attendanceApi.getPersonnelAttendanceSheet()
       .then(
         (res: any) => {
           // console.log(res.docs[0].data());
           this.sheetData = res.docs[0].data().sheet;
+          this.isFetchingData = false;
         },
         (err: any) => {
           // console.log(err);
           // this.connectionToast.openToast();
+          this.isFetchingData = false;
         }
       )
   }

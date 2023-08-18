@@ -61,7 +61,7 @@ export class LoginComponent {
 
     this.authApi.getUserRole(id)
       .then((res) => {
-        // console.log(res.data());
+        console.log(res.data());
         this.userRoleData = res;
         this.isSending = false;
 

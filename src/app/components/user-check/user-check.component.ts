@@ -30,6 +30,11 @@ export class UserCheckComponent {
   personnelSheetData: any;
   sheetData: any;
 
+  attendanceDate = new Date(String(localStorage.getItem("selected_attendance_date")));
+
+  isFetchingData = false;
+  isSavingCheck = false;
+
   ngOnInit(): void {
     this.getUserRole();
     this.getPersonnelAttendanceSheet();
@@ -37,6 +42,8 @@ export class UserCheckComponent {
   }
 
   getUserRole(){
+    this.isFetchingData = true;
+
     let id = localStorage.getItem("uid");
     // console.log(id);
 
@@ -45,25 +52,31 @@ export class UserCheckComponent {
         (res: any) => {
           // console.log(res.data());
           this.userData = res;
+          this.isFetchingData = false;
         },
         (err: any) => {
           // console.log(err);
           // this.connectionToast.openToast();
+          this.isFetchingData = false;
         }
       )
   }
 
   getPersonnelAttendanceSheet(){
+    this.isFetchingData = true;
+
     this.attendanceApi.getPersonnelAttendanceSheet()
       .then(
         (res: any) => {
           // console.log(res.docs[0].data());
           this.personnelSheetData = res.docs[0];
           this.sheetData = res.docs[0].data().sheet;
+          this.isFetchingData = false;
         },
         (err: any) => {
           // console.log(err);
           // this.connectionToast.openToast();
+          this.isFetchingData = false;
         }
       )
   }
@@ -71,14 +84,18 @@ export class UserCheckComponent {
   updateAttendancePersonnelSheet(){
     // console.log(this.sheetData);
 
+    this.isSavingCheck = true;
+
     this.attendanceApi.updateAttendanceSheet(this.personnelSheetData.id, this.sheetData)
       .then(
         (res: any) => {
           // console.log(res);
+          this.isSavingCheck = true;
           this.router.navigateByUrl("/user-summary");
         },
         (err: any) => {
           // console.log(err);
+          this.isSavingCheck = true;
           // this.connectionToast.openToast();
         }
       )

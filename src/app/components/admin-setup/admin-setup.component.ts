@@ -26,6 +26,7 @@ export class AdminSetupComponent {
   ) { }
   
   @ViewChild('confirmButtonElementReference', { read: ElementRef, static: false }) confirmButtonElement!: ElementRef;
+  @ViewChild('outOfRangeButtonElementReference', { read: ElementRef, static: false }) outOfRangeButtonElement!: ElementRef;
   @ViewChild('existButtonElementReference', { read: ElementRef, static: false }) existButtonElement!: ElementRef;
   @ViewChild('selectAttendanceComponentReference', { read: SelectAttendanceComponent, static: false }) selectAttendance!: SelectAttendanceComponent;
 
@@ -171,11 +172,26 @@ export class AdminSetupComponent {
     return Array.from({ length }, (_, i) => start + i)
   }
 
+  checkAttendanceOutOfRange(date: any){
+    let fromDate = new Date(this.attendanceData.from_date);
+    let toDate = new Date(this.attendanceData.to_date);
+    // console.log(date, fromDate, toDate)
+    
+    if (date >= fromDate && date <= toDate)
+      this.checkAttendanceExist(date)
+    else
+      this.openOutOfRangeModal();
+  }
+
   checkAttendanceExist(date: any){
     // console.log(date);
     this.selectedDate = date;
     localStorage.setItem("selected_attendance_date", this.selectedDate.toISOString());
     this.getGeneralAttendanceSheetList();    
+  }
+
+  openOutOfRangeModal(){
+    this.outOfRangeButtonElement.nativeElement.click();
   }
 
   openExistModal(){

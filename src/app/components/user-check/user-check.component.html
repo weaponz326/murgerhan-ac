@@ -1,7 +1,16 @@
 <div class="row mt-3">
     <div class="col">
 
-        <p class="fs-6 text-center mb-1">{{userData?.data()?.full_name}}</p>
+        <div *ngIf="!isFetchingData">
+            <p class="fs-6 text-center mb-1">{{userData?.data()?.full_name}}</p>
+            <p class="fs-6 text-center mb-1">{{attendanceDate | date}}</p>
+        </div>
+
+        <div *ngIf="isFetchingData" class="text-center">
+            <div class="spinner-border text-primary m-2" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
 
     </div>
 </div>
@@ -10,12 +19,12 @@
     <div class="col">
 
         <div class="text-center mb-4">
-            <button class="btn btn-outline-success btn-lg p-4 mx-3" (click)="checkClock('Clock In')">Clock In</button>
-            <button class="btn btn-outline-warning btn-lg p-4 mx-3" (click)="checkClock('Clock Out')">Clock Out</button>
+            <button class="btn btn-outline-success btn-lg p-4 mx-3" [disabled]="isSavingCheck || isFetchingData" (click)="checkClock('Clock In')">Clock In</button>
+            <button class="btn btn-outline-warning btn-lg p-4 mx-3" [disabled]="isSavingCheck || isFetchingData" (click)="checkClock('Clock Out')">Clock Out</button>
         </div>
         <div class="text-center mb-4">
-            <button class="btn btn-outline-success btn-lg p-4 mx-3" (click)="checkClock('Start Break')">Start Break</button>
-            <button class="btn btn-outline-warning btn-lg p-4 mx-3" (click)="checkClock('End Break')">End Break</button>
+            <button class="btn btn-outline-success btn-lg p-4 mx-3" [disabled]="isSavingCheck || isFetchingData" (click)="checkClock('Start Break')">Start Break</button>
+            <button class="btn btn-outline-warning btn-lg p-4 mx-3" [disabled]="isSavingCheck || isFetchingData" (click)="checkClock('End Break')">End Break</button>
         </div>
 
     </div>
