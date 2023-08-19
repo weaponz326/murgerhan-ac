@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "site": "murgerhanhub-att-cons",
+    "site": "mhh-ac",
     "public": "dist/murgerhan-ac",
     "ignore": [
       "firebase.json",
